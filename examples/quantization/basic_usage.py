@@ -9,6 +9,7 @@ quantized_model_dir = "opt-125m-4bit-128g"
 
 def main():
     tokenizer = AutoTokenizer.from_pretrained(pretrained_model_dir, use_fast=True)
+    #> Just use this as an example to do GPT-Q.
     examples = [
         tokenizer(
             "auto-gptq is an easy-to-use model quantization library with user-friendly apis, based on GPTQ algorithm."
