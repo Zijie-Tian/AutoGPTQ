@@ -17,7 +17,7 @@ torch.backends.cudnn.allow_tf32 = False
 
 
 class GPTQ:
-    def __init__(self, layer):
+    def __init__(self, layer, bits=3):
         self.layer = layer
         self.dev = self.layer.weight.device
         W = layer.weight.data.clone()
@@ -29,7 +29,7 @@ class GPTQ:
         self.columns = W.shape[1]
         self.H = torch.zeros((self.columns, self.columns), device=self.dev)
         self.nsamples = 0
-        self.quantizer = Quantizer()
+        self.quantizer = Quantizer(bits)
 
     def add_batch(self, inp, out):
         if os.environ.get("DEBUG"):
